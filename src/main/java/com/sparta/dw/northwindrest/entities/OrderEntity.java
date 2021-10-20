@@ -22,7 +22,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "EmployeeID")
-    private Employee employeeID;
+    private EmployeeEntity employeeID;
 
     @Column(name = "OrderDate")
     private Instant orderDate;
@@ -35,7 +35,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "ShipVia")
-    private Shipper shipVia;
+    private ShipperEntity shipVia;
 
     @Column(name = "Freight", precision = 10, scale = 4)
     private BigDecimal freight;
@@ -114,11 +114,11 @@ public class OrderEntity {
         this.freight = freight;
     }
 
-    public Shipper getShipVia() {
+    public ShipperEntity getShipVia() {
         return shipVia;
     }
 
-    public void setShipVia(Shipper shipVia) {
+    public void setShipVia(ShipperEntity shipVia) {
         this.shipVia = shipVia;
     }
 
@@ -146,11 +146,11 @@ public class OrderEntity {
         this.orderDate = orderDate;
     }
 
-    public Employee getEmployeeID() {
+    public EmployeeEntity getEmployeeID() {
         return employeeID;
     }
 
-    public void setEmployeeID(Employee employeeID) {
+    public void setEmployeeID(EmployeeEntity employeeID) {
         this.employeeID = employeeID;
     }
 

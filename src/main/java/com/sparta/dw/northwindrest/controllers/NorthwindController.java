@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class NorthwindController {
 
     //when java creates a class for us based on a specification that's a bean
-
+    private MyErrorController errCont = new MyErrorController();
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
@@ -50,19 +50,52 @@ public class NorthwindController {
         return orderRepository.findById(id);
     }
 
+//    @GetMapping("/customers")
+//    @ResponseBody()
+//    public List<CustomerEntity> getAllCustomers(){
+//        return customerRepository.findAll();
+//    }
+
     @GetMapping("/customers")
     @ResponseBody()
-    public List<CustomerEntity> getAllCustomers(@RequestParam(required = false)String name){
-        if(name == null){
+    public List<CustomerEntity> getAllCustomersByName(@RequestParam(required = false)String name, @RequestParam(required = false)String companyName, @RequestParam(required = false)String city){
+        if(name == null && companyName==null && city==null){
             return customerRepository.findAll();
         }
+        if(name!=null){
+            return customerRepository.findAll()
+                    .stream()
+                    .filter(customersEntity -> customersEntity.getContactName().contains(name))
+                    .collect(Collectors.toList());
+        }
+        if(city!=null){
+            return customerRepository.findAll()
+                    .stream()
+                    .filter(customersEntity -> customersEntity.getCity().contains(city))
+                    .collect(Collectors.toList());
+        }
+
         return customerRepository.findAll()
                 .stream()
-                .filter(customersEntity -> customersEntity.getContactName().contains(name))
+                .filter(customersEntity -> customersEntity.getCompanyName().contains(companyName))
                 .collect(Collectors.toList());
-
     }
 
 
 
+//    @GetMapping("/customers/city")
+//    @ResponseBody()
+//    public List<CustomerEntity> getAllCustomersByCity(@RequestParam(required = false)String city){
+//        if(city == null){
+//            return customerRepository.findAll();
+//        }
+//        return customerRepository.findAll()
+//                .stream()
+//                .filter(customersEntity -> customersEntity.getCity().contains(city))
+//                .collect(Collectors.toList());
+//    }
+
+// split by country
+
 }
+
