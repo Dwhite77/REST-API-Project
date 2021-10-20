@@ -2,13 +2,14 @@ package com.sparta.dw.northwindrest.controllers;
 
 
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
+import com.sparta.dw.northwindrest.entities.OrderEntity;
 import com.sparta.dw.northwindrest.entities.ProductEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
+import com.sparta.dw.northwindrest.repositories.OrderRepository;
 import com.sparta.dw.northwindrest.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +21,13 @@ public class NorthwindController {
 
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public NorthwindController(ProductRepository productRepository,CustomerRepository customerRepository) {
+    public NorthwindController(ProductRepository productRepository, CustomerRepository customerRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/products")
@@ -37,6 +40,15 @@ public class NorthwindController {
         return productRepository.findById(id);
     }
 
+    @GetMapping("/orders")
+    public List<OrderEntity> getAllOrders(){
+        return orderRepository.findAll();
+    }
+
+    @GetMapping("/orders/{id}")
+    public Optional<OrderEntity> getOrdersByID(@PathVariable Integer id){
+        return orderRepository.findById(id);
+    }
 
     @GetMapping("/customers")
     @ResponseBody()
