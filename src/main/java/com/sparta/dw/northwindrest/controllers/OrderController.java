@@ -54,11 +54,15 @@ public class OrderController {
                 String query = q ;
 //                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
             } else{
+
                 if(employeeID !=null){
                     booleanExpression = booleanExpression.and(order.employeeID.id.like(employeeID));
                 }
                 if(shipCity!=null){
                     booleanExpression = booleanExpression.and(order.shipCity.equalsIgnoreCase(shipCity));
+                }
+                if(employeeID!=null&&shipCity!=null){
+                    booleanExpression = booleanExpression.and(order.shipCity.equalsIgnoreCase(shipCity)).and(order.employeeID.id.like(employeeID));
                 }
             }
             List<OrderEntity> orderEntity = (List<OrderEntity>) orderRepository.findAll(booleanExpression);
