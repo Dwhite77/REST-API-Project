@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Table(name = "territories")
 @Entity
-public class Territory {
+public class TerritoryEntity {
     @Id
     @Column(name = "TerritoryID", nullable = false, length = 20)
     private String id;
@@ -14,13 +14,13 @@ public class Territory {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "RegionID", nullable = false)
-    private Region regionID;
+    private RegionEntity regionID;
 
-    public Region getRegionID() {
+    public RegionEntity getRegionID() {
         return regionID;
     }
 
-    public void setRegionID(Region regionID) {
+    public void setRegionID(RegionEntity regionID) {
         this.regionID = regionID;
     }
 

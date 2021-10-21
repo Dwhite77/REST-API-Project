@@ -7,10 +7,21 @@ import javax.persistence.Table;
 
 @Table(name = "region")
 @Entity
-public class Region {
+public class RegionEntity {
     @Id
     @Column(name = "RegionID", nullable = false)
     private Integer id;
+
+    @Column(name = "RegionDescription", nullable = false, length = 50)
+    private String regionDescription;
+
+    public String getRegionDescription() {
+        return regionDescription;
+    }
+
+    public void setRegionDescription(String regionDescription) {
+        this.regionDescription = regionDescription;
+    }
 
     public Integer getId() {
         return id;
