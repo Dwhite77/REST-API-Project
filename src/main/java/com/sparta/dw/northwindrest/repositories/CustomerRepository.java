@@ -5,7 +5,7 @@ import com.sparta.dw.northwindrest.entities.CustomerEntity;
 
 import java.util.List;
 
-public interface CustomerRepository extends CrudRepository<CustomerEntity, String> {
+public interface CustomerRepository extends CrudRepository<CustomerEntity, Integer> {
 
 //    List<CustomerEntity> findAllByCityIsLike(String city);
 //
