@@ -44,6 +44,7 @@ public class OrderController {
 
     @GetMapping(value = "/orders")
     public Callable<ResponseEntity<List<OrderEntity>>> getAllOrders(@RequestParam(required = false)String shipCity,
+                                                                    @RequestParam(required = false)String shipCountry,
                                                                     @RequestParam(required = false)String employeeID,
                                                                     @RequestParam(required = false)String q){
         return () -> {
@@ -51,10 +52,17 @@ public class OrderController {
             BooleanExpression booleanExpression = order.isNotNull();
             if(q!=null){
                 // this section isn't finished
-                String query = q ;
-//                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
-            } else{
+                String query = "%" + q + "%";
 
+                BooleanExpression shipCityQuery = order.shipCity.likeIgnoreCase(query);
+                BooleanExpression shipCountryQuery = order.shipCountry.likeIgnoreCase(query);
+                BooleanExpression queryExpression = shipCityQuery.or(shipCountryQuery);
+
+                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
+            } else{
+                if(shipCountry!=null){
+                    booleanExpression = booleanExpression.and(order.shipCountry.equalsIgnoreCase(shipCountry));
+                }
                 if(employeeID !=null){
                     booleanExpression = booleanExpression.and(order.employeeID.id.like(employeeID));
                 }

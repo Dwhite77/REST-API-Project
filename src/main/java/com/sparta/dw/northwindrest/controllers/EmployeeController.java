@@ -25,7 +25,7 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee")
-    public Callable<ResponseEntity<List<EmployeeEntity>>> getAllOrders(@RequestParam(required = false)String q,
+    public Callable<ResponseEntity<List<EmployeeEntity>>> getAllEmployees(@RequestParam(required = false)String q,
                                                                        @RequestParam(required = false)String employeeID,
                                                                        @RequestParam(required = false)String title){
         return () -> {

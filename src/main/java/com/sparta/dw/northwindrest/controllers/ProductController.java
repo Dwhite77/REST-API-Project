@@ -40,8 +40,9 @@ public class ProductController {
 
 
     @GetMapping(value = "/products")
-    public Callable<ResponseEntity<List<ProductEntity>>> getAllOrders(@RequestParam(required = false)String supplierName,
+    public Callable<ResponseEntity<List<ProductEntity>>> getAllProducts(@RequestParam(required = false)String supplierName,
                                                                     @RequestParam(required = false)String categoryID,
+                                                                    @RequestParam(required = false)String stock,
                                                                     @RequestParam(required = false)String q){
         return () -> {
             QProductEntity product = QProductEntity.productEntity;
@@ -59,11 +60,26 @@ public class ProductController {
                     String fullSupplierName = "%" + supplierName + "%";
                     booleanExpression = booleanExpression.and(product.supplierID.companyName.likeIgnoreCase(fullSupplierName));
                 }
+                if(stock!=null){
+                    booleanExpression = booleanExpression.and(product.unitsInStock.like(stock));
+                }
                 if(supplierName!=null&&categoryID!=null){
                     String fullSupplierName = "%" + supplierName + "%";
                     booleanExpression = booleanExpression.and(product.supplierID.companyName.likeIgnoreCase(fullSupplierName)).and(product.categoryID.id.like(categoryID));
                 }
+
             }
+            List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
+            return ResponseEntity.ok(productEntity);
+        };
+    }
+
+    @GetMapping(value = "/products/nostock") // a little tester function, to see if this kind of things works, which it does
+    public Callable<ResponseEntity<List<ProductEntity>>> getAllProductsNoStock(){
+        return () -> {
+            QProductEntity product = QProductEntity.productEntity;
+            BooleanExpression booleanExpression = product.isNotNull();
+            booleanExpression = booleanExpression.and(product.unitsInStock.eq(0));
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
             return ResponseEntity.ok(productEntity);
         };
