@@ -11,6 +11,5 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface CrudRepository<T, ID extends Serializable> extends JpaRepository<T, ID>, QuerydslPredicateExecutor<T> {
 
-//    @Override
-//    List<T> findAll(Predicate predicate);
+
 }

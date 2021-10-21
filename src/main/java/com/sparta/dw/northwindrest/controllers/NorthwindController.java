@@ -49,12 +49,11 @@ public class NorthwindController {
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
     }
-//
-//    @GetMapping("/orders/{id}")
-//    public OrderEntity getOrdersByID(@PathVariable Integer id) {
-//        return orderRepository.findById(id);
-////                .orElseThrow(new ResourceNOt);
-//    }
+
+    @GetMapping("/orders/{id}")
+    public Optional<OrderEntity> getOrdersByID(@PathVariable Integer id) {
+        return orderRepository.findById(id);
+    }
 
     @GetMapping(value = "/customers")
     public Callable<ResponseEntity<List<CustomerEntity>>> getAllCustomersByName(
@@ -100,12 +99,12 @@ public class NorthwindController {
 //    public List<CustomerEntity> getAllCustomersByCity(@RequestParam(required = false)String city){
 //        if(city == null){
 //            return customerRepository.findAll();
-//        }
-//        return customerRepository.findAll()
-//                .stream()
-//                .filter(customersEntity -> customersEntity.getCity().contains(city))
-//                .collect(Collectors.toList());
-//    }
+////        }
+////        return customerRepository.findAll()
+////                .stream()
+////                .filter(customersEntity -> customersEntity.getCity().contains(city))
+////                .collect(Collectors.toList());
+////    }
 
 // split by country
 
