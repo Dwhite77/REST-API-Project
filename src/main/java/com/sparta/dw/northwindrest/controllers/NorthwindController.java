@@ -1,10 +1,9 @@
 package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.sparta.dw.northwindrest.entities.CustomerEntity;
-import com.sparta.dw.northwindrest.entities.OrderEntity;
-import com.sparta.dw.northwindrest.entities.ProductEntity;
+import com.sparta.dw.northwindrest.entities.*;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
+import com.sparta.dw.northwindrest.entities.QOrderEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
 import com.sparta.dw.northwindrest.repositories.OrderRepository;
 import com.sparta.dw.northwindrest.repositories.ProductRepository;
@@ -45,28 +44,49 @@ public class NorthwindController {
         return productRepository.findById(id);
     }
 
-    @GetMapping("/orders")
-    public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
-    }
+//    @GetMapping("/orders") // flush this out in a similar way to customers
+//    public List<OrderEntity> getAllOrdersOld() {
+//        return orderRepository.findAll();
+//    }
 
-    @GetMapping("/orders/{id}")
-    public Optional<OrderEntity> getOrdersByID(@PathVariable Integer id) {
-        return orderRepository.findById(id);
+//    @GetMapping("/orders/{id}")
+//    public Optional<OrderEntity> getOrdersByID(@PathVariable Integer id) {
+//        return orderRepository.findById(id);
+//    }
+
+    @GetMapping(value = "/orders")
+    public Callable<ResponseEntity<List<OrderEntity>>> getAllOrders(@RequestParam(required = false)String shipCity,
+                                                                    @RequestParam(required = false)String q){
+        return () -> {
+            QOrderEntity order = QOrderEntity.orderEntity;
+            BooleanExpression booleanExpression = order.isNotNull();
+            if(q!=null){
+                String query = "%"+ q +"%";
+                BooleanExpression employeeIdQuery = order.employeeID.id.like(query); // not too sure on this
+                return null; // this needs to have the query logic added
+            } else{
+                if(shipCity!=null){
+                    booleanExpression = booleanExpression.and(order.shipCity.equalsIgnoreCase(shipCity));
+                }
+            }
+            List<OrderEntity> orderEntity = (List<OrderEntity>) orderRepository.findAll(booleanExpression);
+            return ResponseEntity.ok(orderEntity);
+        };
     }
 
     @GetMapping(value = "/customers")
-    public Callable<ResponseEntity<List<CustomerEntity>>> getAllCustomersByName(
+    public Callable<ResponseEntity<List<CustomerEntity>>> getAllCustomers(
             @RequestParam(required = false) String contactName,
             @RequestParam(required = false) String companyName,
             @RequestParam(required = false) String city,
+            @RequestParam(required = false) String country,
             @RequestParam(required = false) String q) {
         return () -> {
             QCustomerEntity customer = QCustomerEntity.customerEntity;
 
             BooleanExpression booleanExpression = customer.isNotNull();
 
-            if(q != null) {
+            if (q != null) {
                 String query = "%" + q + "%";
                 BooleanExpression compNameQuery = customer.companyName.likeIgnoreCase(query);
                 BooleanExpression contactNameQuery = customer.contactName.likeIgnoreCase(query);
@@ -82,13 +102,15 @@ public class NorthwindController {
                     booleanExpression = booleanExpression.and(customer.city.equalsIgnoreCase(city));
                 }
 
-                if(companyName != null) {
+                if (country != null) {
+                    booleanExpression = booleanExpression.and(customer.country.equalsIgnoreCase(country));
+                }
+
+                if (companyName != null) {
                     booleanExpression = booleanExpression.and(customer.companyName.eq(companyName));
                 }
             }
-
             List<CustomerEntity> customerEntity = (List<CustomerEntity>) customerRepository.findAll(booleanExpression);
-
             return ResponseEntity.ok(customerEntity);
         };
     }
@@ -106,7 +128,7 @@ public class NorthwindController {
 ////                .collect(Collectors.toList());
 ////    }
 
-// split by country
+
 
 }
 
