@@ -1,5 +1,7 @@
 package com.sparta.dw.northwindrest.entities;
 
+import com.sparta.dw.northwindrest.dtos.CustomerDTO;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -161,6 +163,8 @@ public class OrderEntity {
     public void setCustomerID(CustomerEntity customerID) {
         this.customerID = customerID;
     }
+
+    public void setCustomerDTOID(CustomerDTO customerDTO){this.customerID = customerID;}
 
     public Integer getId() {
         return id;

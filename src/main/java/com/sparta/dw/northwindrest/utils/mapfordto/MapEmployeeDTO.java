@@ -1,10 +1,7 @@
-package com.sparta.dw.northwindrest.utils;
+package com.sparta.dw.northwindrest.utils.mapfordto;
 
-import com.sparta.dw.northwindrest.dtos.CustomerDTO;
 import com.sparta.dw.northwindrest.dtos.EmployeeDTO;
-import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.EmployeeEntity;
-import com.sparta.dw.northwindrest.repositories.CustomerRepository;
 import com.sparta.dw.northwindrest.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +23,7 @@ public class MapEmployeeDTO {
                 .collect(Collectors.toList());
     }
 
-    private EmployeeDTO convertToEmployeeDTO(EmployeeEntity empEnt){
+    public EmployeeDTO convertToEmployeeDTO(EmployeeEntity empEnt){
        EmployeeDTO employeeDTO = new EmployeeDTO();
 
         employeeDTO.setCity(empEnt.getCity());

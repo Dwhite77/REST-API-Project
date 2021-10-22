@@ -2,11 +2,10 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
-import com.sparta.dw.northwindrest.dtos.QCustomerDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
-import com.sparta.dw.northwindrest.utils.MapCustomerDTO;
+import com.sparta.dw.northwindrest.utils.mapfordto.MapCustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -6,7 +6,7 @@ import com.sparta.dw.northwindrest.entities.EmployeeEntity;
 
 import com.sparta.dw.northwindrest.entities.QEmployeeEntity;
 import com.sparta.dw.northwindrest.repositories.EmployeeRepository;
-import com.sparta.dw.northwindrest.utils.MapEmployeeDTO;
+import com.sparta.dw.northwindrest.utils.mapfordto.MapEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

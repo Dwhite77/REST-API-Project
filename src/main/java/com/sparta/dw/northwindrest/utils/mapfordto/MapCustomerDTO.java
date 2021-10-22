@@ -1,4 +1,4 @@
-package com.sparta.dw.northwindrest.utils;
+package com.sparta.dw.northwindrest.utils.mapfordto;
 
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
@@ -22,7 +22,7 @@ public class MapCustomerDTO {
                 .collect(Collectors.toList());
     }
 
-    private CustomerDTO convertToCustomerDTO(CustomerEntity custEnt){
+    public CustomerDTO convertToCustomerDTO(CustomerEntity custEnt){
         CustomerDTO customerDTO = new CustomerDTO();
 
         customerDTO.setCustomerID(custEnt.getId());
