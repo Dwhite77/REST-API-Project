@@ -15,7 +15,7 @@ public class OrderDTO {
 
     @ManyToOne
     @JoinColumn
-    private EmployeeDTO employeeID;
+    private EmployeeDTO2 employeeID;
 
     private Instant shippedDate;
 
@@ -57,11 +57,11 @@ public class OrderDTO {
         this.shippedDate = shippedDate;
     }
 
-    public EmployeeDTO getEmployeeID() {
+    public EmployeeDTO2 getEmployeeID() {
         return employeeID;
     }
 
-    public void setEmployeeID(EmployeeDTO employeeID) {
+    public void setEmployeeID(EmployeeDTO2 employeeID) {
         this.employeeID = employeeID;
     }
 

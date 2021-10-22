@@ -1,6 +1,7 @@
 package com.sparta.dw.northwindrest.utils.mapfordto;
 
 import com.sparta.dw.northwindrest.dtos.EmployeeDTO;
+import com.sparta.dw.northwindrest.dtos.EmployeeDTO2;
 import com.sparta.dw.northwindrest.entities.EmployeeEntity;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,22 @@ public class MapEmployeeDTO {
         employeeDTO.setTitleOfCourtesy(empEnt.getTitleOfCourtesy());
 
         return employeeDTO;
+    }
+
+    public List<EmployeeDTO2> getAllEmployees2(List<EmployeeEntity> employeeEntityList){
+        return  employeeEntityList.stream()
+                .map(this::convertToEmployeeDTO2)
+                .collect(Collectors.toList());
+    }
+
+    public EmployeeDTO2 convertToEmployeeDTO2(EmployeeEntity empEnt){
+        EmployeeDTO2 employeeDTO2 = new EmployeeDTO2();
+
+        employeeDTO2.setCountry(empEnt.getCountry());
+        employeeDTO2.setId(empEnt.getId());
+        employeeDTO2.setName(empEnt.getFirstName(),empEnt.getLastName(), empEnt.getTitleOfCourtesy());
+        employeeDTO2.setTitle(empEnt.getTitle());
+
+        return employeeDTO2;
     }
 }

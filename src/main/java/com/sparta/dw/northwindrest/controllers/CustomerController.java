@@ -2,6 +2,7 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
+import com.sparta.dw.northwindrest.dtos.QCustomerDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
@@ -40,33 +41,10 @@ public class CustomerController {
                                                                        @RequestParam(required = false) String q) {
         return () -> {
             QCustomerEntity customer = QCustomerEntity.customerEntity;
-
             BooleanExpression booleanExpression = customer.isNotNull();
 
-            if (q != null) {
-                String query = "%" + q + "%";
-                BooleanExpression compNameQuery = customer.companyName.likeIgnoreCase(query);
-                BooleanExpression contactNameQuery = customer.contactName.likeIgnoreCase(query);
-                BooleanExpression queryExpression = compNameQuery.or(contactNameQuery);
+            booleanExpression = customerLogic(booleanExpression, customer, city, q, contactName, companyName, country);
 
-                booleanExpression = booleanExpression.and(queryExpression);
-            } else {
-                if (contactName != null) {
-                    booleanExpression = booleanExpression.and(customer.contactName.containsIgnoreCase(contactName));
-                }
-
-                if (city != null) {
-                    booleanExpression = booleanExpression.and(customer.city.equalsIgnoreCase(city));
-                }
-
-                if (country != null) {
-                    booleanExpression = booleanExpression.and(customer.country.equalsIgnoreCase(country));
-                }
-
-                if (companyName != null) {
-                    booleanExpression = booleanExpression.and(customer.companyName.containsIgnoreCase(companyName));
-                }
-            }
             List<CustomerEntity> customerEntity = (List<CustomerEntity>) customerRepository.findAll(booleanExpression);
 
             List<CustomerDTO> customerDTOS = mapCustomerDTO.getAllCustomers(customerEntity);
@@ -77,6 +55,7 @@ public class CustomerController {
 
 
     }
+
 
     @GetMapping(value = "/customers/verbose")
     public Callable<ResponseEntity<List<CustomerEntity>>> getAllCustomersVerbose(@RequestParam(required = false) String contactName,
@@ -89,37 +68,41 @@ public class CustomerController {
 
             BooleanExpression booleanExpression = customer.isNotNull();
 
-            if (q != null) {
-                String query = "%" + q + "%";
-                BooleanExpression compNameQuery = customer.companyName.likeIgnoreCase(query);
-                BooleanExpression contactNameQuery = customer.contactName.likeIgnoreCase(query);
-                BooleanExpression queryExpression = compNameQuery.or(contactNameQuery);
-
-                booleanExpression = booleanExpression.and(queryExpression);
-            } else {
-                if (contactName != null) {
-                    booleanExpression = booleanExpression.and(customer.contactName.containsIgnoreCase(contactName));
-                }
-
-                if (city != null) {
-                    booleanExpression = booleanExpression.and(customer.city.equalsIgnoreCase(city));
-                }
-
-                if (country != null) {
-                    booleanExpression = booleanExpression.and(customer.country.equalsIgnoreCase(country));
-                }
-
-                if (companyName != null) {
-                    booleanExpression = booleanExpression.and(customer.companyName.containsIgnoreCase(companyName));
-                }
-            }
+            booleanExpression = customerLogic(booleanExpression, customer, city, q, contactName, companyName, country);
 
             List<CustomerEntity> customerEntity = (List<CustomerEntity>) customerRepository.findAll(booleanExpression);
 
             return ResponseEntity.ok(customerEntity);
 
-
         };
+    }
+
+    public BooleanExpression customerLogic(BooleanExpression booleanExpression, QCustomerEntity customer,String city,  String q, String contactName, String companyName, String country){
+        if (q != null) {
+            String query = "%" + q + "%";
+            BooleanExpression compNameQuery = customer.companyName.likeIgnoreCase(query);
+            BooleanExpression contactNameQuery = customer.contactName.likeIgnoreCase(query);
+            BooleanExpression queryExpression = compNameQuery.or(contactNameQuery);
+
+            booleanExpression = booleanExpression.and(queryExpression);
+        } else {
+            if (contactName != null) {
+                booleanExpression = booleanExpression.and(customer.contactName.containsIgnoreCase(contactName));
+            }
+
+            if (city != null) {
+                booleanExpression = booleanExpression.and(customer.city.equalsIgnoreCase(city));
+            }
+
+            if (country != null) {
+                booleanExpression = booleanExpression.and(customer.country.equalsIgnoreCase(country));
+            }
+
+            if (companyName != null) {
+                booleanExpression = booleanExpression.and(customer.companyName.containsIgnoreCase(companyName));
+            }
+        }
+        return booleanExpression;
     }
 
 }

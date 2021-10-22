@@ -16,7 +16,7 @@ public class MapOrderDTO {
     private MapCustomerDTO mapCustomerDTO;
 
     @Autowired
-    private MapEmployeeDTO mapEmployeeDTO;
+    private MapEmployeeDTO mapEmployeeDTO2;
 
 
     public List<OrderDTO> getAllOrders(List<OrderEntity> orderEntityList){
@@ -31,7 +31,7 @@ public class MapOrderDTO {
     private OrderDTO convertToOrderDTO(OrderEntity ordEnt){
         OrderDTO orderDTO = new OrderDTO();
 
-        orderDTO.setEmployeeID(mapEmployeeDTO.convertToEmployeeDTO(ordEnt.getEmployeeID())); // have a look at testing specifically these to ensure we are getting what we actually want here
+        orderDTO.setEmployeeID(mapEmployeeDTO2.convertToEmployeeDTO2(ordEnt.getEmployeeID())); // have a look at testing specifically these to ensure we are getting what we actually want here
         orderDTO.setCustomerID(mapCustomerDTO.convertToCustomerDTO(ordEnt.getCustomerID()));
         orderDTO.setId(ordEnt.getId());
         orderDTO.setShipAddress(ordEnt.getShipAddress());
