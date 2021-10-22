@@ -29,7 +29,7 @@ public class EmployeeController {
     @Autowired
     private MapEmployeeDTO mapEmployeeDTO;
 
-    @GetMapping(value = "/employee")
+    @GetMapping(value = "/employees")
     public Callable<ResponseEntity<List<EmployeeDTO>>> getAllEmployees(@RequestParam(required = false)String q,
                                                                        @RequestParam(required = false)String employeeID,
                                                                        @RequestParam(required = false)String title){
@@ -56,7 +56,7 @@ public class EmployeeController {
         };
     }
 
-    @GetMapping(value = "/employee/verbose")
+    @GetMapping(value = "/employees/verbose")
     public Callable<ResponseEntity<List<EmployeeEntity>>> getAllEmployeesVerbose(@RequestParam(required = false)String q,
                                                                           @RequestParam(required = false)String employeeID,
                                                                           @RequestParam(required = false)String title){

@@ -31,7 +31,6 @@ public class OrderController {
     }
 
 
-
 //    @GetMapping("/orders") // flush this out in a similar way to customers
 //    public List<OrderEntity> getAllOrdersOld() {
 //        return orderRepository.findAll();
@@ -43,14 +42,14 @@ public class OrderController {
     }
 
     @GetMapping(value = "/orders")
-    public Callable<ResponseEntity<List<OrderEntity>>> getAllOrders(@RequestParam(required = false)String shipCity,
-                                                                    @RequestParam(required = false)String shipCountry,
-                                                                    @RequestParam(required = false)String employeeID,
-                                                                    @RequestParam(required = false)String q){
+    public Callable<ResponseEntity<List<OrderEntity>>> getAllOrders(@RequestParam(required = false) String shipCity,
+                                                                    @RequestParam(required = false) String shipCountry,
+                                                                    @RequestParam(required = false) String employeeID,
+                                                                    @RequestParam(required = false) String q) {
         return () -> {
             QOrderEntity order = QOrderEntity.orderEntity;
             BooleanExpression booleanExpression = order.isNotNull();
-            if(q!=null){
+            if (q != null) {
                 // this section isn't finished
                 String query = "%" + q + "%";
 
@@ -59,29 +58,31 @@ public class OrderController {
                 BooleanExpression queryExpression = shipCityQuery.or(shipCountryQuery);
 
                 booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
-            } else{
-                if(shipCountry!=null){
+            } else {
+                if (shipCountry != null) {
                     booleanExpression = booleanExpression.and(order.shipCountry.equalsIgnoreCase(shipCountry));
                 }
-                if(employeeID !=null){
+
+                if (employeeID != null) {
                     booleanExpression = booleanExpression.and(order.employeeID.id.like(employeeID));
                 }
-                if(shipCity!=null){
+
+                if (shipCity != null) {
                     booleanExpression = booleanExpression.and(order.shipCity.equalsIgnoreCase(shipCity));
                 }
-                if(employeeID!=null&&shipCity!=null){
+
+                if (employeeID != null && shipCity != null) {
                     booleanExpression = booleanExpression.and(order.shipCity.equalsIgnoreCase(shipCity)).and(order.employeeID.id.like(employeeID));
+                }
+
+                if (employeeID != null && shipCountry != null) {
+                    booleanExpression = booleanExpression.and(order.shipCountry.equalsIgnoreCase(shipCountry)).and(order.employeeID.id.like(employeeID));
                 }
             }
             List<OrderEntity> orderEntity = (List<OrderEntity>) orderRepository.findAll(booleanExpression);
             return ResponseEntity.ok(orderEntity);
         };
     }
-
-
-
-
-
 
 
 }
