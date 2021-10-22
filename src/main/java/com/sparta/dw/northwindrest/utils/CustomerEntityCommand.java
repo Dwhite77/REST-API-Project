@@ -71,8 +71,8 @@ public class CustomerEntityCommand {
 
     public CustomerEntityCommand exampleOfHowToInvokeBuilder() {
         return new CustomerEntityCommandBuilder().city("London")
-                .companyName("Yordex")
-                .contactName("Rory")
+                .companyName("Sparta")
+                .contactName("Dan")
                 .country("GBP")
                 .build();
     }

@@ -3,7 +3,6 @@ package com.sparta.dw.northwindrest.utils.mapfordto;
 
 import com.sparta.dw.northwindrest.dtos.ProductDTO;
 import com.sparta.dw.northwindrest.entities.ProductEntity;
-import com.sparta.dw.northwindrest.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

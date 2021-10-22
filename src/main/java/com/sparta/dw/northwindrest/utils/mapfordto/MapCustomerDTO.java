@@ -2,8 +2,6 @@ package com.sparta.dw.northwindrest.utils.mapfordto;
 
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
-import com.sparta.dw.northwindrest.repositories.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
