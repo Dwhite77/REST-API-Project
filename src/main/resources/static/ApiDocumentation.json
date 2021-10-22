@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.3",
+  "servers": [
+    {
+      "description": "Api Documentation",
+      "url": "https://docs"
+    }
+  ],
+
+  "info": {
+    "title": "Title",
+    "description": "Title",
+    "version": "1.0.0"
+  },
+
+  "paths": {
+    "/customers": "get", :
+  }
+}

@@ -24,7 +24,6 @@ public class EmployeeDTO {
 
     private String city;
 
-
     private String country;
 
     private Double salary;

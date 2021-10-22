@@ -8,25 +8,17 @@ public class SupplierDTO {
     @Id
     private Integer id;
 
-
     private String companyName;
-
 
     private String contactName;
 
-
     private String contactTitle;
 
-
     private String address;
-
 
     private String city;
 
     private String country;
-
-
-
 
     public String getCountry() {
         return country;

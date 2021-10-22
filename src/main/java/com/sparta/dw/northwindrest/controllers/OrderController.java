@@ -37,8 +37,8 @@ public class OrderController {
 
 
     @GetMapping("/orders/{id}")
-    public List<OrderDTO> getOrdersByID(@PathVariable Integer id) {
-        return mapOrderDTO.getAllOrders(orderRepository.findById(id).stream().toList());
+    public ResponseEntity<List<OrderDTO>> getOrdersByID(@PathVariable Integer id) {
+        return ResponseEntity.ok(mapOrderDTO.getAllOrders(orderRepository.findById(id).stream().toList()));
     }
 
     @GetMapping(value = "/orders")

@@ -34,10 +34,10 @@ public class CustomerController {
 
     @GetMapping(value = "/customers")
     public Callable<ResponseEntity<List<CustomerDTO>>> getAllCustomers(@RequestParam(required = false) String contactName,
-                                                             @RequestParam(required = false) String companyName,
-                                                             @RequestParam(required = false) String city,
-                                                             @RequestParam(required = false) String country,
-                                                             @RequestParam(required = false) String q){
+                                                                       @RequestParam(required = false) String companyName,
+                                                                       @RequestParam(required = false) String city,
+                                                                       @RequestParam(required = false) String country,
+                                                                       @RequestParam(required = false) String q) {
         return () -> {
             QCustomerEntity customer = QCustomerEntity.customerEntity;
 
@@ -80,11 +80,10 @@ public class CustomerController {
 
     @GetMapping(value = "/customers/verbose")
     public Callable<ResponseEntity<List<CustomerEntity>>> getAllCustomersVerbose(@RequestParam(required = false) String contactName,
-                                                                          @RequestParam(required = false) String companyName,
-                                                                          @RequestParam(required = false) String city,
-                                                                          @RequestParam(required = false) String country,
-                                                                          @RequestParam(required = false) String q)
-    {
+                                                                                 @RequestParam(required = false) String companyName,
+                                                                                 @RequestParam(required = false) String city,
+                                                                                 @RequestParam(required = false) String country,
+                                                                                 @RequestParam(required = false) String q) {
         return () -> {
             QCustomerEntity customer = QCustomerEntity.customerEntity;
 
