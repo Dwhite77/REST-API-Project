@@ -24,7 +24,6 @@ public class EmployeeDTO {
 
     private String city;
 
-    private String region;
 
     private String country;
 
@@ -44,14 +43,6 @@ public class EmployeeDTO {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     public String getCity() {

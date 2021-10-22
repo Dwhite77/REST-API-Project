@@ -2,6 +2,7 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
+import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
@@ -9,6 +10,7 @@ import com.sparta.dw.northwindrest.utils.mapfordto.MapCustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +36,7 @@ public class CustomerController {
 
     @Autowired
     private MapCustomerDTO mapCustomerDTO;
+
 
     @GetMapping(value = "/customers")
     public Callable<ResponseEntity<List<CustomerDTO>>> getAllCustomers(@RequestParam(required = false) String contactName,

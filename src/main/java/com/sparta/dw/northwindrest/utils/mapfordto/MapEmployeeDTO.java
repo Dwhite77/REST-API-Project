@@ -32,7 +32,6 @@ public class MapEmployeeDTO {
         employeeDTO.setId(empEnt.getId());
         employeeDTO.setFirstName(empEnt.getFirstName());
         employeeDTO.setHireDate(empEnt.getHireDate());
-        employeeDTO.setRegion(empEnt.getRegion());
         employeeDTO.setSalary(empEnt.getSalary());
         employeeDTO.setTitle(empEnt.getTitle());
         employeeDTO.setLastName(empEnt.getLastName());

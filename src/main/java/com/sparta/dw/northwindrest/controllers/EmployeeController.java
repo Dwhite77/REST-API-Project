@@ -2,6 +2,7 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.EmployeeDTO;
+import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.entities.EmployeeEntity;
 
 import com.sparta.dw.northwindrest.entities.QEmployeeEntity;
@@ -10,6 +11,7 @@ import com.sparta.dw.northwindrest.utils.mapfordto.MapEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +30,11 @@ public class EmployeeController {
 
     @Autowired
     private MapEmployeeDTO mapEmployeeDTO;
+
+    @GetMapping("/employees/{id}")
+    public List<EmployeeDTO> getEmployeesByID(@PathVariable Integer id) {
+        return mapEmployeeDTO.getAllEmployees(employeeRepository.findById(id).stream().toList());
+    }
 
     @GetMapping(value = "/employees")
     public Callable<ResponseEntity<List<EmployeeDTO>>> getAllEmployees(@RequestParam(required = false)String q,
