@@ -13,10 +13,6 @@ import java.util.stream.Collectors;
 @Service
 public class MapOrderDTO {
 
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
     @Autowired
     private MapCustomerDTO mapCustomerDTO;
 

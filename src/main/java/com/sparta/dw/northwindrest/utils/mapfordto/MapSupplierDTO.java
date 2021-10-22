@@ -13,17 +13,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class MapSupplierDTO {
-    @Autowired
-    private SupplierRepository supplierRepository;
-
 
     public List<SupplierDTO> getAllSuppliers(List<SupplierEntity> supplierEntityList){
         return  supplierEntityList.stream()
                 .map(this::convertToSupplierDTO)
                 .collect(Collectors.toList());
     }
-
-
 
 
     public SupplierDTO convertToSupplierDTO(SupplierEntity supEnt){

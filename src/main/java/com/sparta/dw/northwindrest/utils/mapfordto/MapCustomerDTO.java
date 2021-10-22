@@ -12,10 +12,6 @@ import java.util.stream.Collectors;
 @Service
 public class MapCustomerDTO {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-
     public List<CustomerDTO> getAllCustomers(List<CustomerEntity> customerEntityList){
         return  customerEntityList.stream()
                 .map(this::convertToCustomerDTO)

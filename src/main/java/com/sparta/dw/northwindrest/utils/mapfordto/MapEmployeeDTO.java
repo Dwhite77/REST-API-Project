@@ -13,10 +13,6 @@ import java.util.stream.Collectors;
 @Service
 public class MapEmployeeDTO {
 
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
     public List<EmployeeDTO> getAllEmployees(List<EmployeeEntity> employeeEntityList){
         return  employeeEntityList.stream()
                 .map(this::convertToEmployeeDTO)

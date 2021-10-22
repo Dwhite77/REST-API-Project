@@ -14,10 +14,6 @@ import java.util.stream.Collectors;
 @Service
 public class MapProductDTO {
 
-
-    @Autowired
-    private ProductRepository productRepository;
-
     @Autowired
     private MapSupplierDTO mapSupplierDTO;
 
