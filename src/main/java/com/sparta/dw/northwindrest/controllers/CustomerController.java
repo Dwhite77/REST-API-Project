@@ -2,7 +2,6 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
-import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
@@ -10,16 +9,11 @@ import com.sparta.dw.northwindrest.utils.mapfordto.MapCustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.concurrent.Callable;
-
-
-//:TODO - i want to be able to search by: company name, contact name, contact title, city, country
-
 
 //---------------------------------------------------------
 // Controller for customers

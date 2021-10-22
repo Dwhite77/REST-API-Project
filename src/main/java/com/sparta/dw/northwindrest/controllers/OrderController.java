@@ -1,7 +1,6 @@
 package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.sparta.dw.northwindrest.dtos.CustomerDTO;
 import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.entities.*;
 import com.sparta.dw.northwindrest.entities.QOrderEntity;
@@ -36,10 +35,6 @@ public class OrderController {
     @Autowired
     private MapOrderDTO mapOrderDTO;
 
-//    @GetMapping("/orders") // flush this out in a similar way to customers
-//    public List<OrderEntity> getAllOrdersOld() {
-//        return orderRepository.findAll();
-//    }
 
     @GetMapping("/orders/{id}")
     public List<OrderDTO> getOrdersByID(@PathVariable Integer id) {

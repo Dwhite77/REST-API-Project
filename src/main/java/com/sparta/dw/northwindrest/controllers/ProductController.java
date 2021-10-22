@@ -2,11 +2,8 @@ package com.sparta.dw.northwindrest.controllers;
 
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.dtos.ProductDTO;
-import com.sparta.dw.northwindrest.entities.OrderEntity;
 import com.sparta.dw.northwindrest.entities.ProductEntity;
-import com.sparta.dw.northwindrest.entities.QOrderEntity;
 import com.sparta.dw.northwindrest.entities.QProductEntity;
 import com.sparta.dw.northwindrest.repositories.ProductRepository;
 import com.sparta.dw.northwindrest.utils.mapfordto.MapProductDTO;
