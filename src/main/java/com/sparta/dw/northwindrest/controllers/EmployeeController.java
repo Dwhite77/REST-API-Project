@@ -6,6 +6,7 @@ import com.sparta.dw.northwindrest.entities.EmployeeEntity;
 
 import com.sparta.dw.northwindrest.entities.QEmployeeEntity;
 import com.sparta.dw.northwindrest.repositories.EmployeeRepository;
+import com.sparta.dw.northwindrest.utils.exception.ApiRequestException;
 import com.sparta.dw.northwindrest.utils.mapfordto.MapEmployeeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +57,17 @@ public class EmployeeController {
                     booleanExpression = booleanExpression.and(employee.title.likeIgnoreCase(fullTitle));
                 }
             }
+
             List<EmployeeEntity> employeeEntities = (List<EmployeeEntity>) employeeRepository.findAll(booleanExpression);
             List<EmployeeDTO> employeeDTOS = mapEmployeeDTO.getAllEmployees(employeeEntities);
-            return ResponseEntity.ok(employeeDTOS);
+            if(employeeID!=null ||title!=null|| q!=null){
+                if(booleanExpression != employee.isNotNull()) {
+                    if (employeeDTOS.size() != 0) {
+                        return ResponseEntity.ok(employeeDTOS);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            }else return ResponseEntity.ok(employeeDTOS);
+
         };
     }
 
@@ -84,7 +93,13 @@ public class EmployeeController {
                 }
             }
             List<EmployeeEntity> employeeEntities = (List<EmployeeEntity>) employeeRepository.findAll(booleanExpression);
-            return ResponseEntity.ok(employeeEntities);
+            if(employeeID!=null ||title!=null|| q!=null) {
+                if (booleanExpression != employee.isNotNull()) {
+                    if (employeeEntities.size() != 0) {
+                        return ResponseEntity.ok(employeeEntities);
+                    } else throw new ApiRequestException("NO RESULTS");
+                } else throw new ApiRequestException("Invalid Search");
+            } else return ResponseEntity.ok(employeeEntities);
         };
     }
 

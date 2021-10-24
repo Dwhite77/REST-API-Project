@@ -5,6 +5,7 @@ import com.sparta.dw.northwindrest.dtos.OrderDTO;
 import com.sparta.dw.northwindrest.entities.*;
 import com.sparta.dw.northwindrest.entities.QOrderEntity;
 import com.sparta.dw.northwindrest.repositories.OrderRepository;
+import com.sparta.dw.northwindrest.utils.exception.ApiRequestException;
 import com.sparta.dw.northwindrest.utils.mapfordto.MapOrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -79,9 +80,16 @@ public class OrderController {
                     booleanExpression = booleanExpression.and(order.shipCountry.equalsIgnoreCase(shipCountry)).and(order.employeeID.id.like(employeeID));
                 }
             }
+
             List<OrderEntity> orderEntity = (List<OrderEntity>) orderRepository.findAll(booleanExpression);
             List<OrderDTO> orderDTOS = mapOrderDTO.getAllOrders(orderEntity);
-            return ResponseEntity.ok(orderDTOS);
+            if(shipCountry != null|| employeeID != null || shipCity != null || q != null){
+                if(booleanExpression != order.isNotNull()) {
+                    if (orderDTOS.size() != 0) {
+                        return ResponseEntity.ok(orderDTOS);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            } else return ResponseEntity.ok(orderDTOS);
         };
     }
 
@@ -124,7 +132,15 @@ public class OrderController {
                 }
             }
             List<OrderEntity> orderEntity = (List<OrderEntity>) orderRepository.findAll(booleanExpression);
-            return ResponseEntity.ok(orderEntity);
+            if(shipCountry != null|| employeeID != null || shipCity != null || q != null){
+                if(booleanExpression != order.isNotNull()){
+                    if(orderEntity.size() != 0){
+                        return ResponseEntity.ok(orderEntity);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            } else return ResponseEntity.ok(orderEntity);
+
+
         };
     }
 

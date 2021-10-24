@@ -2,10 +2,11 @@ package com.sparta.dw.northwindrest.controllers;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.dw.northwindrest.dtos.CustomerDTO;
-import com.sparta.dw.northwindrest.dtos.QCustomerDTO;
 import com.sparta.dw.northwindrest.entities.CustomerEntity;
 import com.sparta.dw.northwindrest.entities.QCustomerEntity;
 import com.sparta.dw.northwindrest.repositories.CustomerRepository;
+import com.sparta.dw.northwindrest.utils.exception.ApiRequestException;
+import com.sparta.dw.northwindrest.utils.exception.ResponseExceptionHandler;
 import com.sparta.dw.northwindrest.utils.mapfordto.MapCustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.concurrent.Callable;
 @RestController
 public class CustomerController {
 
+
     private final CustomerRepository customerRepository;
 
     @Autowired
@@ -32,6 +34,8 @@ public class CustomerController {
     @Autowired
     private MapCustomerDTO mapCustomerDTO;
 
+    @Autowired
+    private ResponseExceptionHandler responseExceptionHandler;
 
     @GetMapping(value = "/customers")
     public Callable<ResponseEntity<List<CustomerDTO>>> getAllCustomers(@RequestParam(required = false) String contactName,
@@ -46,10 +50,16 @@ public class CustomerController {
             booleanExpression = customerLogic(booleanExpression, customer, city, q, contactName, companyName, country);
 
             List<CustomerEntity> customerEntity = (List<CustomerEntity>) customerRepository.findAll(booleanExpression);
-
             List<CustomerDTO> customerDTOS = mapCustomerDTO.getAllCustomers(customerEntity);
 
-            return ResponseEntity.ok(customerDTOS);
+            if(contactName != null || companyName != null || city != null || country != null || q != null){
+                if(booleanExpression != customer.isNotNull()) {
+                    if (customerDTOS.size() != 0) {
+                        return ResponseEntity.ok(customerDTOS);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            } else return ResponseEntity.ok(customerDTOS);
+
 
         };
 
@@ -71,8 +81,13 @@ public class CustomerController {
             booleanExpression = customerLogic(booleanExpression, customer, city, q, contactName, companyName, country);
 
             List<CustomerEntity> customerEntity = (List<CustomerEntity>) customerRepository.findAll(booleanExpression);
-
-            return ResponseEntity.ok(customerEntity);
+            if(contactName != null || companyName != null || city != null || country != null || q != null){
+                if(booleanExpression != customer.isNotNull()) {
+                    if(customerEntity.size() != 0){
+                        return ResponseEntity.ok(customerEntity);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            } else return ResponseEntity.ok(customerEntity);
 
         };
     }

@@ -6,6 +6,7 @@ import com.sparta.dw.northwindrest.dtos.ProductDTO;
 import com.sparta.dw.northwindrest.entities.ProductEntity;
 import com.sparta.dw.northwindrest.entities.QProductEntity;
 import com.sparta.dw.northwindrest.repositories.ProductRepository;
+import com.sparta.dw.northwindrest.utils.exception.ApiRequestException;
 import com.sparta.dw.northwindrest.utils.mapfordto.MapProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -72,7 +73,15 @@ public class ProductController {
             }
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
             List<ProductDTO> productDTOS = mapProductDTO.getAllProducts(productEntity);
-            return ResponseEntity.ok(productDTOS);
+            if(supplierName != null || categoryID != null|| stock != null||q != null){
+                if(booleanExpression != product.isNotNull()){
+                    if(productDTOS.size() != 0){
+                        return ResponseEntity.ok(productDTOS);
+                    } else throw new ApiRequestException("NO RESULTS");
+                }else throw new ApiRequestException("Invalid Search");
+            }else return ResponseEntity.ok(productDTOS);
+
+
         };
     }
 
@@ -107,8 +116,14 @@ public class ProductController {
 
             }
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
-            return ResponseEntity.ok(productEntity);
-        };
+            if(supplierName != null || categoryID != null|| stock != null||q != null) {
+                if (booleanExpression != product.isNotNull()) {
+                    if (productEntity.size() != 0) {
+                        return ResponseEntity.ok(productEntity);
+                    } else throw new ApiRequestException("NO RESULTS");
+                } else throw new ApiRequestException("Invalid Search");
+            }else return ResponseEntity.ok(productEntity);
+    };
     }
 
     @GetMapping(value = "/products/nostock")
@@ -121,6 +136,7 @@ public class ProductController {
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
             List<ProductDTO> productDTOS = mapProductDTO.getAllProducts(productEntity);
             return ResponseEntity.ok(productDTOS);
+
         };
     }
 }

@@ -1,4 +1,4 @@
-package com.sparta.dw.northwindrest.controllers;
+package com.sparta.dw.northwindrest.utils.exception;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -21,5 +21,10 @@ public class MyErrorController implements ErrorController {
         }
 
         return "error";
+    }
+
+    @RequestMapping("/novalues")
+    public String handleErrorNoValues() {
+        return "novalues";
     }
 }
