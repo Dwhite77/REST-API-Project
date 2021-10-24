@@ -135,4 +135,18 @@ public class ProductController {
 
         };
     }
+
+    @GetMapping(value = "/products/discontinued")
+    // a little tester function, to see if this kind of things works, which it does
+    public Callable<ResponseEntity<List<ProductDTO>>> getAllProductsDiscontinued() {
+        return () -> {
+            QProductEntity product = QProductEntity.productEntity;
+            BooleanExpression booleanExpression = product.isNotNull();
+            booleanExpression = booleanExpression.and(product.discontinued.eq(true));
+            List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
+            List<ProductDTO> productDTOS = mapProductDTO.getAllProducts(productEntity);
+            return ResponseEntity.ok(productDTOS);
+
+        };
+    }
 }
