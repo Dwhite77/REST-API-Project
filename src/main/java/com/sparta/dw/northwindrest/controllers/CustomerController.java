@@ -92,6 +92,9 @@ public class CustomerController {
         };
     }
 
+
+
+
     public BooleanExpression customerLogic(BooleanExpression booleanExpression, QCustomerEntity customer,String city,  String q, String contactName, String companyName, String country){
         if (q != null) {
             String query = "%" + q + "%";

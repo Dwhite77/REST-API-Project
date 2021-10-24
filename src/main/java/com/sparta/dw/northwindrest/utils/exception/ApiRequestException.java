@@ -8,6 +8,4 @@ public class ApiRequestException extends RuntimeException{
     }
 
 
-
-
 }
