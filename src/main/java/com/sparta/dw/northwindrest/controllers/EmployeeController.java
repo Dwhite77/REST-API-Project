@@ -44,10 +44,12 @@ public class EmployeeController {
             QEmployeeEntity employee = QEmployeeEntity.employeeEntity;
             BooleanExpression booleanExpression = employee.isNotNull();
             if(q!=null){
-                // this section isn't finished
                 String query = q ;
 
-//                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
+                BooleanExpression firstNameQuery = employee.firstName.likeIgnoreCase(query);
+                BooleanExpression lastNameQuery = employee.lastName.likeIgnoreCase(query);
+                BooleanExpression queryExpression = firstNameQuery.or(lastNameQuery);
+                booleanExpression = booleanExpression.and(queryExpression);
             } else{
                 if(employeeID!=null){
                     booleanExpression = booleanExpression.and(employee.id.like(employeeID));
@@ -81,8 +83,10 @@ public class EmployeeController {
             if(q!=null){
                 // this section isn't finished
                 String query = q ;
-
-//                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
+                BooleanExpression firstNameQuery = employee.firstName.likeIgnoreCase(query);
+                BooleanExpression lastNameQuery = employee.lastName.likeIgnoreCase(query);
+                BooleanExpression queryExpression = firstNameQuery.or(lastNameQuery);
+                booleanExpression = booleanExpression.and(queryExpression);
             } else{
                 if(employeeID!=null){
                     booleanExpression = booleanExpression.and(employee.id.like(employeeID));

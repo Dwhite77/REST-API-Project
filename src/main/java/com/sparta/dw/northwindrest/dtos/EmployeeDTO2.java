@@ -34,7 +34,7 @@ public class EmployeeDTO2 {
         return name;
     }
 
-    public void setName(String firstName, String lastName, String titleOfCourtesy) {this.name = titleOfCourtesy +" "+ firstName + " "+ lastName;}
+    public void setName(String firstName, String lastName, String titleOfCourtesy) {this.name = titleOfCourtesy +" "+ firstName + " "+ lastName;} // this allows all of the name components to be on the same line
 
     public Integer getId() {
         return id;
