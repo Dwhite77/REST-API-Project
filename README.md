@@ -24,6 +24,24 @@ SpringBoot API for the Northwind Database
 4. Clicking on any of the links will take you to the various areas that you can search.
 5. There are a number of search parameters in each of the different sections, a good place to start is which the q search term that is the broadest term of searching.
 ## Features <a name="features"><a/>
+### DTOs showing off only useful information
+#### Customers
+
+![img_7.png](img_7.png)
+
+#### Employees
+
+![img_8.png](img_8.png)
+
+#### Orders
+Orders have an even shorter version of the employee dto as to those looking at the orders much less employee information is useful to them.
+
+![img_9.png](img_9.png)
+
+#### Products 
+
+![img_10.png](img_10.png)
+
 ### Search Functionality
 A non-specific search function is included for each section where you can search for a term to see if it is contained within a number of different fields.
 More specific search terms can be used to further narrow down options.
