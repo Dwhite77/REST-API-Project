@@ -50,6 +50,8 @@ It is possible to layer search terms on top of each other to get the exact resul
 ###Error handling
 A number of the errors that may occur on use, have been changed so that they display an appropriate message to the user e.g. so that they know that there is no search results for that particular term.
 
+![img_11.png](img_11.png)
+
 ## Testing <a name="testing"><a/>
 
 During various phases of development there has been a number of JUnit tests that have been carried out, here are a couple from various sections of the application.
