@@ -50,9 +50,12 @@ public class ProductController {
             QProductEntity product = QProductEntity.productEntity;
             BooleanExpression booleanExpression = product.isNotNull();
             if (q != null) {
-                // this section isn't finished
                 String query = q;
-//                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
+                BooleanExpression productNameQuery = product.productName.likeIgnoreCase(query);
+                BooleanExpression supplierNameQuery = product.supplierID.companyName.likeIgnoreCase(query);
+                BooleanExpression queryExpression = productNameQuery.or(supplierNameQuery);
+
+                booleanExpression = booleanExpression.and(queryExpression);
             } else {
 
                 if (categoryID != null) {
@@ -65,11 +68,6 @@ public class ProductController {
                 if (stock != null) {
                     booleanExpression = booleanExpression.and(product.unitsInStock.like(stock));
                 }
-                if (supplierName != null && categoryID != null) {
-                    String fullSupplierName = "%" + supplierName + "%";
-                    booleanExpression = booleanExpression.and(product.supplierID.companyName.likeIgnoreCase(fullSupplierName)).and(product.categoryID.id.like(categoryID));
-                }
-
             }
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
             List<ProductDTO> productDTOS = mapProductDTO.getAllProducts(productEntity);
@@ -94,9 +92,12 @@ public class ProductController {
             QProductEntity product = QProductEntity.productEntity;
             BooleanExpression booleanExpression = product.isNotNull();
             if (q != null) {
-                // this section isn't finished
                 String query = q;
-//                booleanExpression = booleanExpression.and(queryExpression); // this needs to have query logic added
+                BooleanExpression productNameQuery = product.productName.likeIgnoreCase(query);
+                BooleanExpression supplierNameQuery = product.supplierID.companyName.likeIgnoreCase(query);
+                BooleanExpression queryExpression = productNameQuery.or(supplierNameQuery);
+
+                booleanExpression = booleanExpression.and(queryExpression);
             } else {
 
                 if (categoryID != null) {
@@ -109,11 +110,6 @@ public class ProductController {
                 if (stock != null) {
                     booleanExpression = booleanExpression.and(product.unitsInStock.like(stock));
                 }
-                if (supplierName != null && categoryID != null) {
-                    String fullSupplierName = "%" + supplierName + "%";
-                    booleanExpression = booleanExpression.and(product.supplierID.companyName.likeIgnoreCase(fullSupplierName)).and(product.categoryID.id.like(categoryID));
-                }
-
             }
             List<ProductEntity> productEntity = (List<ProductEntity>) productRepository.findAll(booleanExpression);
             if(supplierName != null || categoryID != null|| stock != null||q != null) {

@@ -51,7 +51,6 @@ public class OrderController {
             QOrderEntity order = QOrderEntity.orderEntity;
             BooleanExpression booleanExpression = order.isNotNull();
             if (q != null) {
-                // this section isn't finished
                 String query = "%" + q + "%";
 
                 BooleanExpression shipCityQuery = order.shipCity.likeIgnoreCase(query);
@@ -102,7 +101,6 @@ public class OrderController {
             QOrderEntity order = QOrderEntity.orderEntity;
             BooleanExpression booleanExpression = order.isNotNull();
             if (q != null) {
-                // this section isn't finished
                 String query = "%" + q + "%";
 
                 BooleanExpression shipCityQuery = order.shipCity.likeIgnoreCase(query);
