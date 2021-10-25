@@ -52,6 +52,13 @@ A number of the errors that may occur on use, have been changed so that they dis
 
 ![img_11.png](img_11.png)
 
+### Special functions
+
+![img_12.png](img_12.png)
+
+There are special search functions that can be used to get a specific set of results, for instance the shown above nostock command shows all products where there is no stock left. and the below discontinued shows all products that have been discontinued.
+
+![img_13.png](img_13.png)
 ## Testing <a name="testing"><a/>
 
 During various phases of development there has been a number of JUnit tests that have been carried out, here are a couple from various sections of the application.
